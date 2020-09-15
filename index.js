@@ -5,7 +5,7 @@ var socket = require('socket.io')
 var app = express()
 var port = 3030
 var server = app.listen(port,()=>{
-    console.log('listening to port '+port)
+    console.log('listening to '+port)
 })
 
 //* static files 
@@ -16,4 +16,8 @@ var io = socket(server)
 
 io.on('connection',(socket)=>{
     console.log('made a socket connection',socket.id)
+
+    socket.on('chat',(data)=>{
+        io.sockets.emit('chat',data)
+    })
 })
